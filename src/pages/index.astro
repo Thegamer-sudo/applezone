@@ -1,26 +1,17 @@
 ---
-import '../styles/global.css';
-// Component Imports
-import Button from '../components/Button.astro';
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import FreeAccessories from '../components/FreeAccessories.astro';  // NEW
+import FinalCTA from '../components/FinalCTA.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
-
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
-	</body>
-</html>
+<BaseLayout>
+    <HeroSection />
+    <ProductGrid />
+    <FreeAccessories />  <!-- ADD THIS -->
+    <WhyChooseUs />
+    <FinalCTA />
+</BaseLayout>

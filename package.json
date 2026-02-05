@@ -10,10 +10,22 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
+    "@astrojs/react": "^4.4.2",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
     "@tailwindcss/vite": "^4.1.18",
     "@types/canvas-confetti": "^1.9.0",
     "astro": "^5.17.1",
     "canvas-confetti": "^1.9.4",
-    "tailwindcss": "^4.1.18"
+    "framer-motion": "^12.31.0",
+    "lucide-react": "^0.563.0",
+    "preact": "^10.28.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.1.18",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.182.0"
   }
 }

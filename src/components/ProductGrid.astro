@@ -1,0 +1,79 @@
+---
+// src/components/ProductGrid.astro
+import { getFeaturedIphones } from '../data/iphones.js';
+
+const featuredIphones = getFeaturedIphones();
+---
+
+<section class="py-24 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+        <!-- Section Header -->
+        <div class="text-center space-y-6 mb-20">
+            <h2 class="text-4xl font-semibold text-gray-900">Featured iPhones</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Browse our selection of premium iPhones
+            </p>
+        </div>
+        
+        <!-- Featured iPhones Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-20">
+            {featuredIphones.map(iphone => {
+                // Check if this iPhone has a real image
+                const hasRealImage = iphone.image && iphone.image.startsWith('/images/');
+                
+                return (
+                    <div class="bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 p-10 hover:scale-[1.02] border border-gray-100">
+                        <div class="flex justify-center mb-8">
+                            {hasRealImage ? (
+                                <!-- Real iPhone Image -->
+                                <div class="w-48 h-48 bg-gray-50 rounded-2xl flex items-center justify-center overflow-hidden">
+                                    <img 
+                                        src={iphone.image} 
+                                        alt={iphone.name}
+                                        class="w-full h-full object-contain p-4"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            ) : (
+                                <!-- Placeholder with model number -->
+                                <div class="w-48 h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center p-6">
+                                    <div class="text-center">
+                                        <div class="text-5xl font-bold text-gray-800">{iphone.name.split(' ')[1]}</div>
+                                        <div class="text-base text-gray-500 mt-2">{iphone.name.split(' ')[0]}</div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        <div class="text-center space-y-6">
+                            <div class="space-y-3">
+                                <h3 class="text-2xl font-semibold text-gray-900">{iphone.name}</h3>
+                                <p class="text-gray-600 text-base">{iphone.tagline}</p>
+                            </div>
+                            <!-- REMOVED PRICE HERE -->
+                            <a 
+                                href={`/products/${iphone.id}`} 
+                                class="inline-block w-full py-4 bg-gray-50 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-100 hover:border-gray-400 transition-colors"
+                            >
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+        
+        <!-- View All Button with LOGO GRADIENT -->
+        <div class="text-center">
+            <a 
+                href="/products" 
+                class="inline-flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white font-semibold px-12 py-5 rounded-xl hover:opacity-90 transition-all shadow-lg hover:shadow-xl text-lg transform hover:-translate-y-0.5"
+                style="background: linear-gradient(90deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%);"
+            >
+                Browse All 21+ Models
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-3">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>

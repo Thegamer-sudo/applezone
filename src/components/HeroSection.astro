@@ -1,0 +1,144 @@
+---
+// src/components/HeroSection.astro
+// Hero section with hero.jpg background image - REDUCED OPACITY
+---
+
+<!-- Import font via Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    .font-poppins {
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+    
+    .gradient-text {
+        background: linear-gradient(90deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .gradient-button {
+        background: linear-gradient(90deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%);
+        background-size: 200% auto;
+        transition: all 0.3s ease;
+    }
+    
+    .gradient-button:hover {
+        background-position: right center;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+    }
+    
+    .hero-container {
+        background: 
+            linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.85)), /* Even more transparent */
+            url('/images/hero.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .hero-container {
+            background-attachment: scroll;
+            min-height: 70vh;
+        }
+    }
+    
+    /* Text styling for better contrast */
+    .text-overlay {
+        text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+    }
+</style>
+
+<section class="hero-container font-poppins">
+    <div class="container mx-auto px-6 py-20">
+        <div class="text-center space-y-10 max-w-4xl mx-auto text-overlay">
+            <!-- Main Heading -->
+            <div class="space-y-6">
+                <h1 class="text-5xl md:text-7xl font-light text-gray-900 tracking-tight">
+                    Welcome to
+                    <span class="block font-bold mt-4">
+                        <span class="gradient-text">AppleZone</span>
+                    </span>
+                </h1>
+                
+                <!-- Description -->
+                <p class="text-2xl md:text-3xl text-gray-800 leading-relaxed">
+                    From iPhone XR to the latest iPhone 17 Pro Max.
+                    <span class="block mt-4 font-medium text-gray-700">Experience every detail before you decide.</span>
+                </p>
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-6 justify-center pt-8">
+                <a 
+                    href="/products"
+                    class="gradient-button inline-flex items-center justify-center rounded-xl text-white px-10 py-5 text-lg font-semibold transition-all shadow-xl hover:shadow-2xl"
+                >
+                    Browse All iPhones
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-3">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a>
+                <a 
+                    href="https://wa.me/27796353542"
+                    target="_blank"
+                    class="inline-flex items-center justify-center rounded-xl bg-white/95 backdrop-blur-sm border-2 border-gray-300 px-10 py-5 text-lg font-medium text-gray-800 hover:bg-white hover:border-gray-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                >
+                    Get Expert Advice
+                </a>
+            </div>
+            
+            <!-- Stats Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-16 max-w-3xl mx-auto">
+                <div class="text-center bg-white/80 backdrop-blur-sm rounded-xl p-4">
+                    <div class="text-4xl font-bold gradient-text">21+</div>
+                    <div class="text-gray-700 font-medium">iPhone Models</div>
+                </div>
+                <div class="text-center bg-white/80 backdrop-blur-sm rounded-xl p-4">
+                    <div class="text-4xl font-bold gradient-text">4</div>
+                    <div class="text-gray-700 font-medium">Months Warranty</div>
+                </div>
+                <div class="text-center bg-white/80 backdrop-blur-sm rounded-xl p-4">
+                    <div class="text-4xl font-bold gradient-text">R0</div>
+                    <div class="text-gray-700 font-medium">On Accessories</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Simple fade-in animation for elements
+    document.addEventListener('DOMContentLoaded', () => {
+        const elements = document.querySelectorAll('.text-overlay > *');
+        elements.forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+            
+            setTimeout(() => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 100);
+        });
+        
+        // Check if hero image loads
+        const img = new Image();
+        img.src = '/images/hero.jpg';
+        
+        img.onerror = function() {
+            console.log('Hero image not found at /images/hero.jpg');
+            document.querySelector('.hero-container').style.background = 'linear-gradient(135deg, #f5f7fa 0%, #e4e8f5 100%)';
+        };
+    });
+</script>

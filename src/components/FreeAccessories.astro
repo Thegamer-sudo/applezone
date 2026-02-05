@@ -1,0 +1,61 @@
+---
+// src/components/FreeAccessories.astro
+// Simple accessories display - no descriptions, no prices
+---
+
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Free Accessories Included
+            </h2>
+            <p class="text-lg text-gray-600">
+                Every iPhone purchase comes with a complete accessory kit.
+            </p>
+        </div>
+
+        <!-- Simple Accessories Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+            <!-- Fast Charger -->
+            <div class="group bg-gray-50 rounded-xl p-6 hover:bg-white hover:shadow-lg transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 mb-4 flex items-center justify-center">
+                        <img src="/images/accessories/charger.jpg" alt="Fast Charger" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900">Fast Charger</h3>
+                </div>
+            </div>
+
+            <!-- Phone Case -->
+            <div class="group bg-gray-50 rounded-xl p-6 hover:bg-white hover:shadow-lg transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 mb-4 flex items-center justify-center">
+                        <img src="/images/accessories/case.jpg" alt="Phone Case" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900">Phone Case</h3>
+                </div>
+            </div>
+
+            <!-- Screen Protector -->
+            <div class="group bg-gray-50 rounded-xl p-6 hover:bg-white hover:shadow-lg transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 mb-4 flex items-center justify-center">
+                        <img src="/images/accessories/screen-protector.jpg" alt="Screen Protector" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900">Screen Protector</h3>
+                </div>
+            </div>
+
+            <!-- Ear Pod -->
+            <div class="group bg-gray-50 rounded-xl p-6 hover:bg-white hover:shadow-lg transition-all duration-300 border border-gray-100">
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 mb-4 flex items-center justify-center">
+                        <img src="/images/accessories/earpods.jpg" alt="Ear Pod" class="w-full h-full object-contain">
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900">Ear Pod</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

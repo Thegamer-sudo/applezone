@@ -1,0 +1,68 @@
+---
+// src/components/WhyChooseUs.astro
+// Why Choose Us section with proper spacing
+---
+
+<section class="py-32 px-6 bg-white">
+    <div class="container mx-auto max-w-6xl">
+        <!-- Section Header -->
+        <div class="text-center space-y-6 mb-20">
+            <h2 class="text-4xl font-semibold text-gray-900">Why Choose AppleZone</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Premium service with peace of mind
+            </p>
+        </div>
+        
+        <!-- Benefits Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <!-- Warranty -->
+            <div class="bg-white rounded-2xl p-10 text-center shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 hover:border-gray-200">
+                <div class="h-20 w-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold text-gray-900">4 Months Warranty</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Every iPhone comes with a comprehensive 4-month warranty for your complete peace of mind.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Lay-by -->
+            <div class="bg-white rounded-2xl p-10 text-center shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 hover:border-gray-200">
+                <div class="h-20 w-20 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold text-gray-900">4 Months Lay-by</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Flexible 4-month lay-by payment plan to make premium iPhones more accessible to everyone.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Accessories -->
+            <div class="bg-white rounded-2xl p-10 text-center shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 hover:border-gray-200">
+                <div class="h-20 w-20 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600">
+                        <rect x="1" y="3" width="15" height="13"></rect>
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                    </svg>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold text-gray-900">Free Accessories</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Every purchase includes premium accessories: cable, charger, pouch, and screen protector.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
