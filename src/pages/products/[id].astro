@@ -49,6 +49,10 @@ const hexColors = iphone.colors.map(color => getColorHex(color));
 const preOwnedVariants = iphone.variants.filter(v => v.condition === 'PRE OWNED');
 const sealedVariants = iphone.variants.filter(v => v.condition === 'SEALED DEVICE');
 const brandNewVariants = iphone.variants.filter(v => v.condition === 'BRAND NEW');
+
+// Check if this is iPhone XR to use the 3D model
+const isIPhoneXR = iphone.id === 'iphone-xr';
+const modelPath = isIPhoneXR ? '/models/iphone-xr/XR.glb' : null;
 ---
 
 <BaseLayout>
@@ -110,7 +114,8 @@ const brandNewVariants = iphone.variants.filter(v => v.condition === 'BRAND NEW'
                     <div class="glass-card rounded-3xl p-8 shadow-2xl">
                         <Clean3DViewer 
                             client:load 
-                            color={hexColors[0] || '#1D1D1F'} 
+                            color={hexColors[0] || '#1D1D1F'}
+                            modelPath={modelPath}
                         />
                     </div>
                 </div>
