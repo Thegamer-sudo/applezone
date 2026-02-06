@@ -1,6 +1,6 @@
 ---
 // src/components/HeroSection.astro
-// Clean hero section with minimal overlay
+// Clean hero section with very subtle background
 ---
 
 <!-- Import font via Google Fonts -->
@@ -18,16 +18,12 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        position: relative;
-        z-index: 2;
     }
     
     .gradient-button {
         background: linear-gradient(90deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%);
         background-size: 200% auto;
         transition: all 0.3s ease;
-        position: relative;
-        z-index: 2;
     }
     
     .gradient-button:hover {
@@ -36,9 +32,11 @@
         box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
     }
     
-    /* Minimal overlay - almost transparent */
+    /* Very subtle background - almost transparent */
     .hero-container {
-        background: url('/images/hero.jpg');
+        background: 
+            linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.75)), /* SIGNIFICANTLY REDUCED OPACITY */
+            url('/images/hero.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -48,77 +46,54 @@
         position: relative;
     }
     
-    /* Ultra subtle overlay for text readability */
-    .hero-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(255, 255, 255, 0.25); /* VERY light overlay */
-        z-index: 1;
-    }
-    
-    /* Mobile - even less overlay */
+    /* Mobile-specific - even less opacity */
     @media (max-width: 768px) {
         .hero-container {
-            background: url('/images/hero.jpg');
+            background: 
+                linear-gradient(rgba(255, 255, 255, 0.50), rgba(255, 255, 255, 0.60)), /* Slightly more on mobile for readability */
+                url('/images/hero.jpg');
             background-size: cover;
-            background-position: center;
+            background-position: center 30%;
             background-repeat: no-repeat;
             min-height: 80vh;
             background-attachment: scroll;
         }
         
+        /* Optional: Remove overlay if you want image to be more visible */
+        /*
         .hero-container::before {
-            background: rgba(255, 255, 255, 0.20); /* Almost invisible on mobile */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.15); /* Very subtle overlay */
+            /*z-index: 1;
         }
+        */
         
-        /* Better image positioning for mobile */
-        .hero-container {
-            background-position: center 35%;
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
     }
     
-    /* Tablet adjustments */
-    @media (min-width: 769px) and (max-width: 1024px) {
-        .hero-container {
-            background-position: center 40%;
-        }
+    /* Improve text contrast */
+    .text-overlay {
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
     
-    /* Strong text contrast for readability */
+    /* Darker text for better readability */
     .hero-text {
-        color: #111827; /* Very dark gray for maximum contrast */
-        position: relative;
-        z-index: 2;
+        color: #1f2937; /* Darker gray for better contrast */
     }
     
-    /* Text shadow for better readability against background */
-    .text-overlay h1 {
-        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.7);
-    }
-    
-    .text-overlay p {
-        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
-    }
-    
-    /* Ensure content is above overlay */
-    .hero-content {
-        position: relative;
-        z-index: 3;
-    }
-    
-    /* Optional: Add a subtle background to text for extra readability */
-    @media (max-width: 768px) {
-        .text-backdrop {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(4px);
-            border-radius: 0.5rem;
-        }
+    /* Subtle glass effect on button for better contrast */
+    .glass-button {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
 </style>
 
@@ -137,7 +112,7 @@
                 <!-- Simplified Description -->
                 <p class="text-xl md:text-2xl hero-text leading-relaxed">
                     Premium iPhones from XR to 17 Pro Max
-                    <span class="block mt-3 text-lg md:text-xl text-gray-800 font-light">
+                    <span class="block mt-3 text-lg md:text-xl text-gray-700 font-light">
                         Experience. Explore. Elevate.
                     </span>
                 </p>
@@ -174,29 +149,23 @@
             }, 100);
         }
         
-        // Load background
+        // Load background with minimal overlay
         const img = new Image();
         img.src = '/images/hero.jpg';
         
         img.onload = function() {
             console.log('Hero image loaded with minimal overlay');
-            // Apply background directly
-            document.querySelector('.hero-container').style.backgroundImage = `url('${img.src}')`;
-            
-            // Set ultra minimal overlay
-            const overlay = document.querySelector('.hero-container::before');
-            if (overlay) {
-                document.querySelector('.hero-container').style.setProperty('--overlay-opacity', 
-                    window.innerWidth <= 768 ? '0.15' : '0.20');
-            }
+            // Apply with very low opacity overlay
+            const opacity = window.innerWidth <= 768 ? 0.70 : 0.65; // Slightly more on mobile
+            document.querySelector('.hero-container').style.backgroundImage = 
+                `linear-gradient(rgba(255, 255, 255, ${opacity}), rgba(255, 255, 255, ${opacity + 0.10})), url('${img.src}')`;
         };
         
         img.onerror = function() {
-            console.log('Hero image not found, using subtle gradient');
-            // Very subtle gradient fallback
+            console.log('Hero image not found, using gradient fallback');
+            // Minimal gradient fallback
             document.querySelector('.hero-container').style.background = 
-                'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)';
-            document.querySelector('.hero-container::before').style.background = 'rgba(255, 255, 255, 0.1)';
+                'linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(226, 232, 240, 0.9) 100%)';
         };
     });
 </script>
