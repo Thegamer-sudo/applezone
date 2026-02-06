@@ -1,9 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Clean3DViewer from '../../components/Clean3DViewer.jsx';
-import { getAllIphones, formatPrice } from '../../data/iphones.js';
+import { getAllIphones } from '../../data/iphones.js';
 
-// Export getStaticPaths to tell Astro which pages to generate
 export async function getStaticPaths() {
   const allIphones = getAllIphones();
   
@@ -46,26 +45,69 @@ function getColorHex(colorName) {
 
 const hexColors = iphone.colors.map(color => getColorHex(color));
 
-// Get unique storage and condition options
-const storageOptions = Array.from(new Set(iphone.variants.map(v => v.storage)));
-const conditionOptions = Array.from(new Set(iphone.variants.map(v => v.condition)));
+// Separate variants by condition
+const preOwnedVariants = iphone.variants.filter(v => v.condition === 'PRE OWNED');
+const sealedVariants = iphone.variants.filter(v => v.condition === 'SEALED DEVICE');
+const brandNewVariants = iphone.variants.filter(v => v.condition === 'BRAND NEW');
 ---
 
 <BaseLayout>
+    <!-- Import Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .font-poppins {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .gradient-button {
+            background: linear-gradient(90deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%);
+            background-size: 200% auto;
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-button:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        .gradient-border {
+            border-image: linear-gradient(90deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%) 1;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #8B5CF6 0%, #EC4899 50%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+
     <!-- Breadcrumb -->
-    <div class="container mx-auto px-4 pt-24 pb-8">
-        <a href="/products" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+    <div class="container mx-auto px-4 pt-28 pb-8">
+        <a href="/products" class="text-gray-600 hover:text-gray-900 text-sm font-medium transition-colors flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
             Back to All iPhones
         </a>
     </div>
 
     <!-- Product Detail -->
-    <div class="container mx-auto px-4 pb-20">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <div class="container mx-auto px-4 pb-20 font-poppins">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
             <!-- Left Column - 3D iPhone Viewer -->
             <div class="flex justify-center">
-                <div class="w-full max-w-2xl">
-                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-200">
+                <div class="w-full max-w-xl">
+                    <div class="glass-card rounded-3xl p-8 shadow-2xl">
                         <Clean3DViewer 
                             client:load 
                             color={hexColors[0] || '#1D1D1F'} 
@@ -75,117 +117,162 @@ const conditionOptions = Array.from(new Set(iphone.variants.map(v => v.condition
             </div>
 
             <!-- Right Column - Details & Pricing -->
-            <div class="space-y-12">
-                <!-- Title ONLY - NO DESCRIPTION -->
+            <div class="space-y-16">
+                <!-- Title -->
                 <div>
-                    <h1 class="text-4xl font-bold text-gray-900 mb-4">{iphone.name}</h1>
+                    <h1 class="text-5xl font-bold text-gray-900 mb-6 tracking-tight">{iphone.name}</h1>
+                    <div class="h-1 w-24 gradient-border bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
                 </div>
 
-                <!-- Price Display (Hidden until selection) -->
-                <div id="price-section" class="hidden bg-gradient-to-r from-blue-50 to-white rounded-2xl p-10 border-2 border-blue-200 shadow-lg">
-                    <div class="text-center">
-                        <div class="text-sm text-gray-500 mb-3 uppercase tracking-wider">Selected Price</div>
-                        <div class="text-6xl font-bold text-gray-900 mb-4" id="price-display"></div>
-                        <div class="text-lg text-gray-700 font-medium" id="selection-details"></div>
-                    </div>
-                </div>
-
-                <!-- Storage & Condition Selection -->
-                <div class="space-y-10">
-                    <!-- Storage Options -->
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-6">Storage Capacity</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {storageOptions.map(storage => (
-                                <button 
-                                    class="storage-button bg-white border-2 border-gray-300 text-gray-800 py-4 rounded-xl font-medium transition-all duration-200 text-center hover:border-blue-500"
-                                    data-storage={storage}
-                                >
-                                    {storage}
-                                </button>
-                            ))}
+                <!-- Pricing Tables - Sexy Glass Design -->
+                <div class="space-y-12">
+                    <!-- PRE OWNED -->
+                    {preOwnedVariants.length > 0 && (
+                        <div class="glass-card rounded-3xl p-10 shadow-2xl">
+                            <div class="flex items-center justify-between mb-12">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">PRE OWNED</h3>
+                                    <p class="text-gray-600 text-sm">Professionally refurbished • 4 months warranty</p>
+                                </div>
+                                <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center shadow-inner">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {preOwnedVariants.map((variant) => (
+                                    <a 
+                                        href={`https://wa.me/27796353542?text=${encodeURIComponent(`Hi, I want to purchase the ${iphone.name} (${variant.storage}, ${variant.condition}) for R${variant.price.toLocaleString('en-ZA')}`)}`}
+                                        target="_blank"
+                                        class="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 text-center border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                                    >
+                                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold px-4 py-1 rounded-full">
+                                            {variant.storage}
+                                        </div>
+                                        <div class="text-4xl font-bold text-gray-900 mb-6 mt-4">R{variant.price.toLocaleString('en-ZA')}</div>
+                                        <div class="gradient-button inline-flex items-center justify-center rounded-xl text-white px-8 py-4 font-semibold transition-all w-full">
+                                            <span>Purchase</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2">
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
-                    <!-- Condition Options -->
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-6">Device Condition</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            {conditionOptions.map(condition => (
-                                <button 
-                                    class="condition-button bg-white border-2 border-gray-300 text-gray-800 py-4 rounded-xl font-medium transition-all duration-200 text-center hover:border-blue-500"
-                                    data-condition={condition}
-                                >
-                                    {condition}
-                                </button>
-                            ))}
+                    <!-- SEALED DEVICE -->
+                    {sealedVariants.length > 0 && (
+                        <div class="glass-card rounded-3xl p-10 shadow-2xl">
+                            <div class="flex items-center justify-between mb-12">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">SEALED DEVICE</h3>
+                                    <p class="text-gray-600 text-sm">Factory sealed • Original accessories</p>
+                                </div>
+                                <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-200 flex items-center justify-center shadow-inner">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {sealedVariants.map((variant) => (
+                                    <a 
+                                        href={`https://wa.me/27796353542?text=${encodeURIComponent(`Hi, I want to purchase the ${iphone.name} (${variant.storage}, ${variant.condition}) for R${variant.price.toLocaleString('en-ZA')}`)}`}
+                                        target="_blank"
+                                        class="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 text-center border border-gray-200 hover:border-green-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                                    >
+                                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-semibold px-4 py-1 rounded-full">
+                                            {variant.storage}
+                                        </div>
+                                        <div class="text-4xl font-bold text-gray-900 mb-6 mt-4">R{variant.price.toLocaleString('en-ZA')}</div>
+                                        <div class="gradient-button inline-flex items-center justify-center rounded-xl text-white px-8 py-4 font-semibold transition-all w-full">
+                                            <span>Purchase</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2">
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
+
+                    <!-- BRAND NEW -->
+                    {brandNewVariants.length > 0 && (
+                        <div class="glass-card rounded-3xl p-10 shadow-2xl">
+                            <div class="flex items-center justify-between mb-12">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">BRAND NEW</h3>
+                                    <p class="text-gray-600 text-sm">Latest model • Direct from manufacturer</p>
+                                </div>
+                                <div class="h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-100 to-cyan-200 flex items-center justify-center shadow-inner">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 gap-6">
+                                {brandNewVariants.map((variant) => (
+                                    <a 
+                                        href={`https://wa.me/27796353542?text=${encodeURIComponent(`Hi, I want to purchase the ${iphone.name} (${variant.storage}, ${variant.condition}) for R${variant.price.toLocaleString('en-ZA')}`)}`}
+                                        target="_blank"
+                                        class="group relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-8 text-center border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                                    >
+                                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs font-semibold px-4 py-1 rounded-full">
+                                            {variant.storage}
+                                        </div>
+                                        <div class="text-4xl font-bold text-gray-900 mb-6 mt-4">R{variant.price.toLocaleString('en-ZA')}</div>
+                                        <div class="gradient-button inline-flex items-center justify-center rounded-xl text-white px-8 py-4 font-semibold transition-all w-full">
+                                            <span>Purchase</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2">
+                                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
-                <!-- CTA Buttons (Hidden until price shows) -->
-                <div id="cta-section" class="hidden">
-                    <div class="flex flex-col sm:flex-row gap-6 pt-8">
-                        <a 
-                            id="whatsapp-link"
-                            href="#"
-                            target="_blank"
-                            class="inline-flex items-center justify-center bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold px-10 py-5 rounded-2xl hover:from-green-600 hover:to-green-700 transition-all shadow-lg hover:shadow-xl flex-1 text-center text-lg"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-3">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                            </svg>
-                            Contact to Purchase
-                        </a>
-                        <a 
-                            href="/products"
-                            class="inline-flex items-center justify-center bg-white border-2 border-gray-300 text-gray-700 font-medium px-10 py-5 rounded-2xl hover:bg-gray-50 hover:border-gray-400 transition-all flex-1 text-center"
-                        >
-                            View Other Models
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Included Benefits -->
-                <div class="pt-12 border-t border-gray-200">
-                    <h3 class="text-xl font-semibold text-gray-900 mb-8">Included with Every Purchase</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="flex items-center space-x-4 bg-green-50 p-6 rounded-xl">
-                            <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
+                <!-- Included Benefits - Minimal Design -->
+                <div class="glass-card rounded-3xl p-10">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-10 text-center">What's Included</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="text-center space-y-4">
+                            <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-200 flex items-center justify-center mx-auto shadow-inner">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                                 </svg>
                             </div>
-                            <div>
-                                <div class="font-semibold text-gray-900">4 Months Warranty</div>
-                                <div class="text-sm text-gray-600">Complete peace of mind</div>
-                            </div>
+                            <div class="font-semibold text-gray-900 text-lg">4 Months Warranty</div>
                         </div>
-                        <div class="flex items-center space-x-4 bg-blue-50 p-6 rounded-xl">
-                            <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                        <div class="text-center space-y-4">
+                            <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-100 to-cyan-200 flex items-center justify-center mx-auto shadow-inner">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <polyline points="12 6 12 12 16 14"></polyline>
                                 </svg>
                             </div>
-                            <div>
-                                <div class="font-semibold text-gray-900">4 Months Lay-by</div>
-                                <div class="text-sm text-gray-600">Flexible payment plan</div>
-                            </div>
+                            <div class="font-semibold text-gray-900 text-lg">4 Months Lay-by</div>
                         </div>
-                        <div class="flex items-center space-x-4 bg-purple-50 p-6 rounded-xl">
-                            <div class="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600">
+                        <div class="text-center space-y-4">
+                            <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-purple-100 to-pink-200 flex items-center justify-center mx-auto shadow-inner">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="1" y="3" width="15" height="13"></rect>
                                     <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
                                     <circle cx="5.5" cy="18.5" r="2.5"></circle>
                                     <circle cx="18.5" cy="18.5" r="2.5"></circle>
                                 </svg>
                             </div>
-                            <div>
-                                <div class="font-semibold text-gray-900">Free Accessories</div>
-                                <div class="text-sm text-gray-600">Premium accessories included</div>
-                            </div>
+                            <div class="font-semibold text-gray-900 text-lg">Free Accessories</div>
                         </div>
                     </div>
                 </div>
@@ -193,149 +280,3 @@ const conditionOptions = Array.from(new Set(iphone.variants.map(v => v.condition
         </div>
     </div>
 </BaseLayout>
-
-<script is:inline>
-    // SIMPLE, WORKING JAVASCRIPT - NO COMPLEX LOGIC
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('=== PRODUCT PAGE LOADED ===');
-        console.log('iPhone: {iphone.name}');
-        console.log('Variants:', {JSON.stringify(iphone.variants)});
-        
-        // State
-        let selectedStorage = null;
-        let selectedCondition = null;
-        
-        // Get DOM elements
-        const priceSection = document.getElementById('price-section');
-        const priceDisplay = document.getElementById('price-display');
-        const selectionDetails = document.getElementById('selection-details');
-        const ctaSection = document.getElementById('cta-section');
-        const whatsappLink = document.getElementById('whatsapp-link');
-        
-        // Get all variants from the page
-        const variants = {JSON.stringify(iphone.variants)};
-        
-        // Function to update button styles
-        function updateButtonStyles() {
-            // Update storage buttons
-            document.querySelectorAll('.storage-button').forEach(btn => {
-                const storage = btn.getAttribute('data-storage');
-                if (storage === selectedStorage) {
-                    btn.classList.add('border-blue-600', 'bg-blue-100', 'text-blue-800', 'font-semibold');
-                    btn.classList.remove('border-gray-300', 'bg-white', 'text-gray-800');
-                } else {
-                    btn.classList.remove('border-blue-600', 'bg-blue-100', 'text-blue-800', 'font-semibold');
-                    btn.classList.add('border-gray-300', 'bg-white', 'text-gray-800');
-                }
-            });
-            
-            // Update condition buttons
-            document.querySelectorAll('.condition-button').forEach(btn => {
-                const condition = btn.getAttribute('data-condition');
-                if (condition === selectedCondition) {
-                    btn.classList.add('border-blue-600', 'bg-blue-100', 'text-blue-800', 'font-semibold');
-                    btn.classList.remove('border-gray-300', 'bg-white', 'text-gray-800');
-                } else {
-                    btn.classList.remove('border-blue-600', 'bg-blue-100', 'text-blue-800', 'font-semibold');
-                    btn.classList.add('border-gray-300', 'bg-white', 'text-gray-800');
-                }
-            });
-        }
-        
-        // Function to find price for selected options
-        function findPrice() {
-            if (!selectedStorage || !selectedCondition) {
-                return null;
-            }
-            
-            // Find matching variant
-            const variant = variants.find(v => 
-                v.storage === selectedStorage && 
-                v.condition === selectedCondition
-            );
-            
-            return variant ? variant.price : null;
-        }
-        
-        // Function to update price display
-        function updatePriceDisplay() {
-            const price = findPrice();
-            
-            if (price) {
-                // Show price section
-                priceSection.classList.remove('hidden');
-                ctaSection.classList.remove('hidden');
-                
-                // Update price
-                const formattedPrice = 'R' + price.toLocaleString('en-ZA');
-                priceDisplay.textContent = formattedPrice;
-                selectionDetails.textContent = `${selectedStorage} • ${selectedCondition}`;
-                
-                // Update WhatsApp link
-                const message = `Hi, I'm interested in the {iphone.name} (${selectedStorage}, ${selectedCondition}) for ${formattedPrice} from AppleZone.`;
-                whatsappLink.href = `https://wa.me/27796353542?text=${encodeURIComponent(message)}`;
-                
-                console.log('Price shown:', formattedPrice, 'for', selectedStorage, selectedCondition);
-            } else {
-                // Hide price section
-                priceSection.classList.add('hidden');
-                ctaSection.classList.add('hidden');
-            }
-        }
-        
-        // Function to handle storage button click
-        function handleStorageClick(storage) {
-            console.log('Storage selected:', storage);
-            selectedStorage = storage;
-            updateButtonStyles();
-            updatePriceDisplay();
-        }
-        
-        // Function to handle condition button click
-        function handleConditionClick(condition) {
-            console.log('Condition selected:', condition);
-            selectedCondition = condition;
-            updateButtonStyles();
-            updatePriceDisplay();
-        }
-        
-        // Add event listeners to storage buttons
-        document.querySelectorAll('.storage-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const storage = this.getAttribute('data-storage');
-                handleStorageClick(storage);
-            });
-        });
-        
-        // Add event listeners to condition buttons
-        document.querySelectorAll('.condition-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const condition = this.getAttribute('data-condition');
-                handleConditionClick(condition);
-            });
-        });
-        
-        // Auto-select first options
-        const firstStorage = document.querySelector('.storage-button')?.getAttribute('data-storage');
-        const firstCondition = document.querySelector('.condition-button')?.getAttribute('data-condition');
-        
-        if (firstStorage) {
-            selectedStorage = firstStorage;
-        }
-        
-        if (firstCondition) {
-            selectedCondition = firstCondition;
-        }
-        
-        // Update display with auto-selected options
-        if (firstStorage || firstCondition) {
-            setTimeout(() => {
-                updateButtonStyles();
-                updatePriceDisplay();
-            }, 100);
-        }
-        
-        console.log('Initial selection:', selectedStorage, selectedCondition);
-        console.log('=== SETUP COMPLETE ===');
-    });
-</script>
