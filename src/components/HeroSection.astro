@@ -1,6 +1,6 @@
 ---
 // src/components/HeroSection.astro
-// Hero section with hero.jpg background image - REDUCED OPACITY
+// Clean hero section with very subtle background
 ---
 
 <!-- Import font via Google Fonts -->
@@ -32,113 +32,140 @@
         box-shadow: 0 10px 25px rgba(139, 92, 246, 0.3);
     }
     
+    /* Very subtle background - almost transparent */
     .hero-container {
         background: 
-            linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.85)), /* Even more transparent */
+            linear-gradient(rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.75)), /* SIGNIFICANTLY REDUCED OPACITY */
             url('/images/hero.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-attachment: fixed;
-        min-height: 80vh;
+        min-height: 85vh;
         display: flex;
         align-items: center;
+        position: relative;
     }
     
-    /* Responsive adjustments */
+    /* Mobile-specific - even less opacity */
     @media (max-width: 768px) {
         .hero-container {
+            background: 
+                linear-gradient(rgba(255, 255, 255, 0.70), rgba(255, 255, 255, 0.80)), /* Slightly more on mobile for readability */
+                url('/images/hero.jpg');
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            min-height: 80vh;
             background-attachment: scroll;
-            min-height: 70vh;
+        }
+        
+        /* Optional: Remove overlay if you want image to be more visible */
+        /*
+        .hero-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.15); /* Very subtle overlay */
+            /*z-index: 1;
+        }
+        */
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
     }
     
-    /* Text styling for better contrast */
+    /* Improve text contrast */
     .text-overlay {
-        text-shadow: 0 2px 8px rgba(255, 255, 255, 0.9);
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Darker text for better readability */
+    .hero-text {
+        color: #1f2937; /* Darker gray for better contrast */
+    }
+    
+    /* Subtle glass effect on button for better contrast */
+    .glass-button {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
 </style>
 
 <section class="hero-container font-poppins">
-    <div class="container mx-auto px-6 py-20">
-        <div class="text-center space-y-10 max-w-4xl mx-auto text-overlay">
-            <!-- Main Heading -->
-            <div class="space-y-6">
-                <h1 class="text-5xl md:text-7xl font-light text-gray-900 tracking-tight">
+    <div class="container mx-auto px-6 py-20 hero-content">
+        <div class="text-center space-y-10 max-w-3xl mx-auto text-overlay">
+            <!-- Main Heading - Cleaner -->
+            <div class="space-y-8">
+                <h1 class="text-5xl md:text-7xl font-light hero-text tracking-tight">
                     Welcome to
                     <span class="block font-bold mt-4">
                         <span class="gradient-text">AppleZone</span>
                     </span>
                 </h1>
                 
-                <!-- Description -->
-                <p class="text-2xl md:text-3xl text-gray-800 leading-relaxed">
-                    From iPhone XR to the latest iPhone 17 Pro Max.
-                    <span class="block mt-4 font-medium text-gray-700">Experience every detail before you decide.</span>
+                <!-- Simplified Description -->
+                <p class="text-xl md:text-2xl hero-text leading-relaxed">
+                    Premium iPhones from XR to 17 Pro Max
+                    <span class="block mt-3 text-lg md:text-xl text-gray-700 font-light">
+                        Experience. Explore. Elevate.
+                    </span>
                 </p>
             </div>
             
-            <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-6 justify-center pt-8">
+            <!-- Single CTA Button - Clean & Center -->
+            <div class="pt-6">
                 <a 
                     href="/products"
-                    class="gradient-button inline-flex items-center justify-center rounded-xl text-white px-10 py-5 text-lg font-semibold transition-all shadow-xl hover:shadow-2xl"
+                    class="gradient-button inline-flex items-center justify-center rounded-xl text-white px-12 py-5 text-lg font-semibold transition-all shadow-xl hover:shadow-2xl max-w-xs mx-auto"
                 >
-                    Browse All iPhones
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-3">
+                    <span class="mr-3">Browse iPhones</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </a>
-                <a 
-                    href="https://wa.me/27796353542"
-                    target="_blank"
-                    class="inline-flex items-center justify-center rounded-xl bg-white/95 backdrop-blur-sm border-2 border-gray-300 px-10 py-5 text-lg font-medium text-gray-800 hover:bg-white hover:border-gray-400 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                >
-                    Get Expert Advice
-                </a>
-            </div>
-            
-            <!-- Stats Row -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-16 max-w-3xl mx-auto">
-                <div class="text-center bg-white/80 backdrop-blur-sm rounded-xl p-4">
-                    <div class="text-4xl font-bold gradient-text">21+</div>
-                    <div class="text-gray-700 font-medium">iPhone Models</div>
-                </div>
-                <div class="text-center bg-white/80 backdrop-blur-sm rounded-xl p-4">
-                    <div class="text-4xl font-bold gradient-text">4</div>
-                    <div class="text-gray-700 font-medium">Months Warranty</div>
-                </div>
-                <div class="text-center bg-white/80 backdrop-blur-sm rounded-xl p-4">
-                    <div class="text-4xl font-bold gradient-text">R0</div>
-                    <div class="text-gray-700 font-medium">On Accessories</div>
-                </div>
             </div>
         </div>
     </div>
 </section>
 
 <script>
-    // Simple fade-in animation for elements
+    // Simple fade-in animation
     document.addEventListener('DOMContentLoaded', () => {
-        const elements = document.querySelectorAll('.text-overlay > *');
-        elements.forEach((el, index) => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = `opacity 0.6s ease ${index * 0.2}s, transform 0.6s ease ${index * 0.2}s`;
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.style.opacity = '0';
+            heroContent.style.transform = 'translateY(20px)';
+            heroContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             
             setTimeout(() => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
             }, 100);
-        });
+        }
         
-        // Check if hero image loads
+        // Load background with minimal overlay
         const img = new Image();
         img.src = '/images/hero.jpg';
         
+        img.onload = function() {
+            console.log('Hero image loaded with minimal overlay');
+            // Apply with very low opacity overlay
+            const opacity = window.innerWidth <= 768 ? 0.70 : 0.65; // Slightly more on mobile
+            document.querySelector('.hero-container').style.backgroundImage = 
+                `linear-gradient(rgba(255, 255, 255, ${opacity}), rgba(255, 255, 255, ${opacity + 0.10})), url('${img.src}')`;
+        };
+        
         img.onerror = function() {
-            console.log('Hero image not found at /images/hero.jpg');
-            document.querySelector('.hero-container').style.background = 'linear-gradient(135deg, #f5f7fa 0%, #e4e8f5 100%)';
+            console.log('Hero image not found, using gradient fallback');
+            // Minimal gradient fallback
+            document.querySelector('.hero-container').style.background = 
+                'linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(226, 232, 240, 0.9) 100%)';
         };
     });
 </script>
