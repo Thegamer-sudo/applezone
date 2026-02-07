@@ -1,68 +1,172 @@
 ---
 // src/components/WhyChooseUs.astro
-// Why Choose Us section with proper spacing
+// Why Choose Us section with banner image
 ---
 
-<section class="py-32 px-6 bg-white">
-    <div class="container mx-auto max-w-6xl">
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
         <!-- Section Header -->
-        <div class="text-center space-y-6 mb-20">
-            <h2 class="text-4xl font-semibold text-gray-900">Why Choose AppleZone</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Premium service with peace of mind
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-medium text-gray-900 mb-4">Why Choose Us</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Quality service with complete peace of mind
             </p>
         </div>
-        
-        <!-- Benefits Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <!-- Warranty -->
-            <div class="bg-white rounded-2xl p-10 text-center shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 hover:border-gray-200">
-                <div class="h-20 w-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+            <!-- Left Column - Benefits -->
+            <div class="space-y-8">
+                <!-- Warranty -->
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0">
+                        <div class="h-14 w-14 rounded-full bg-green-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">4 Months Warranty</h3>
+                        <p class="text-gray-600">
+                            Every iPhone comes with comprehensive warranty coverage for complete peace of mind.
+                        </p>
+                    </div>
                 </div>
-                <div class="space-y-4">
-                    <h3 class="text-2xl font-bold text-gray-900">4 Months Warranty</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Every iPhone comes with a comprehensive 4-month warranty for your complete peace of mind.
-                    </p>
+
+                <!-- Lay-by -->
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0">
+                        <div class="h-14 w-14 rounded-full bg-blue-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">4 Months Lay-by</h3>
+                        <p class="text-gray-600">
+                            Flexible payment plan to make premium iPhones accessible to everyone.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Accessories -->
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0">
+                        <div class="h-14 w-14 rounded-full bg-purple-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600">
+                                <rect x="1" y="3" width="15" height="13"></rect>
+                                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Free Accessories</h3>
+                        <p class="text-gray-600">
+                            Premium accessories included with every purchase at no extra cost.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quality -->
+                <div class="flex items-start space-x-6">
+                    <div class="flex-shrink-0">
+                        <div class="h-14 w-14 rounded-full bg-yellow-100 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-600">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Quality Guaranteed</h3>
+                        <p class="text-gray-600">
+                            Professionally inspected and tested iPhones that meet our strict quality standards.
+                        </p>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Lay-by -->
-            <div class="bg-white rounded-2xl p-10 text-center shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 hover:border-gray-200">
-                <div class="h-20 w-20 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                </div>
-                <div class="space-y-4">
-                    <h3 class="text-2xl font-bold text-gray-900">4 Months Lay-by</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Flexible 4-month lay-by payment plan to make premium iPhones more accessible to everyone.
-                    </p>
-                </div>
-            </div>
-            
-            <!-- Accessories -->
-            <div class="bg-white rounded-2xl p-10 text-center shadow-card hover:shadow-card-hover transition-all duration-300 border border-gray-100 hover:border-gray-200">
-                <div class="h-20 w-20 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-8">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-600">
-                        <rect x="1" y="3" width="15" height="13"></rect>
-                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                    </svg>
-                </div>
-                <div class="space-y-4">
-                    <h3 class="text-2xl font-bold text-gray-900">Free Accessories</h3>
-                    <p class="text-gray-600 leading-relaxed">
-                        Every purchase includes premium accessories: cable, charger, pouch, and screen protector.
-                    </p>
+
+            <!-- Right Column - Banner Image -->
+            <div class="flex justify-center lg:justify-end">
+                <div class="max-w-md">
+                    <div class="rounded-xl overflow-hidden shadow-lg">
+                        <img 
+                            src="/images/banner.jpg" 
+                            alt="Why Choose AppleZone" 
+                            class="w-full h-auto object-cover"
+                            loading="lazy"
+                            width="454"
+                            height="1024"
+                            onerror="this.style.display='none'; document.getElementById('banner-fallback').style.display='flex'"
+                        />
+                        <!-- Fallback if image doesn't load -->
+                        <div id="banner-fallback" class="hidden bg-gray-100 aspect-[454/1024] items-center justify-center p-8">
+                            <div class="text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <h3 class="text-lg font-medium text-gray-900">Premium Service</h3>
+                                <p class="text-gray-600 mt-2">Quality you can trust</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    /* Mobile responsiveness */
+    @media (max-width: 1024px) {
+        .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+        }
+        
+        /* Stack columns on mobile */
+        .grid-cols-1 {
+            gap: 3rem;
+        }
+        
+        /* Adjust image size for mobile */
+        .max-w-md {
+            max-width: 100%;
+        }
+        
+        /* Reduce icon size on mobile */
+        .h-14.w-14 {
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+    
+    /* Image hover effect */
+    img {
+        transition: transform 0.3s ease;
+    }
+    
+    img:hover {
+        transform: translateY(-4px);
+    }
+    
+    /* Smooth appearance */
+    section {
+        opacity: 0;
+        animation: fadeIn 0.6s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+</style>
