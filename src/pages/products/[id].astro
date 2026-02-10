@@ -50,9 +50,20 @@ const preOwnedVariants = iphone.variants.filter(v => v.condition === 'PRE OWNED'
 const sealedVariants = iphone.variants.filter(v => v.condition === 'SEALED DEVICE');
 const brandNewVariants = iphone.variants.filter(v => v.condition === 'BRAND NEW');
 
-// Check if this is iPhone XR to use the 3D model
-const isIPhoneXR = iphone.id === 'iphone-xr';
-const modelPath = isIPhoneXR ? '/models/iphone-xr/XR.glb' : null;
+// 3D Model paths for specific iPhones
+let modelPath = null;
+
+// iPhone XR - uses GLTF format
+if (iphone.id === 'iphone-xr') {
+    modelPath = '/models/iphone-xr/scene.gltf';
+}
+
+// iPhone 11 - uses GLB format
+if (iphone.id === 'iphone-11') {
+    modelPath = '/models/iphone-11/iphone_11.glb';
+}
+
+// Other iPhones will get modelPath = null (shows basic model)
 ---
 
 <BaseLayout>
@@ -114,7 +125,6 @@ const modelPath = isIPhoneXR ? '/models/iphone-xr/XR.glb' : null;
                     <div class="glass-card rounded-3xl p-8 shadow-2xl">
                         <Clean3DViewer 
                             client:load 
-                            color={hexColors[0] || '#1D1D1F'}
                             modelPath={modelPath}
                         />
                     </div>
