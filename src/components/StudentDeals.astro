@@ -1,0 +1,81 @@
+---
+// Student Deals Section - Clean & Minimal
+---
+
+<!-- Student Deals Section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <!-- Simple Centered Heading -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-medium text-gray-900 mb-4">
+                Student Specials
+            </h2>
+            <p class="text-lg text-gray-600 max-w-md mx-auto">
+                Exclusive deals for students
+            </p>
+        </div>
+
+        <!-- Centered Image with Breathing Animation -->
+        <div class="max-w-2xl mx-auto">
+            <div class="relative rounded-xl overflow-hidden shadow-lg animate-breathing">
+                <img 
+                    src="/images/studentdeals.jpg" 
+                    alt="Student Deals" 
+                    class="w-full h-auto object-cover"
+                    loading="lazy"
+                    width="1024"
+                    height="523"
+                />
+            </div>
+            
+            <!-- Simple note below image -->
+            <div class="text-center mt-6">
+                <p class="text-gray-700 font-medium">
+                    Show your student ID for special pricing
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Breathing animation - subtle and clean */
+    @keyframes breathing {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        50% {
+            transform: scale(1.005);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+    }
+    
+    .animate-breathing {
+        animation: breathing 4s ease-in-out infinite;
+    }
+    
+    /* Mobile optimization */
+    @media (max-width: 768px) {
+        .animate-breathing {
+            animation: breathing 5s ease-in-out infinite;
+        }
+        
+        h2 {
+            font-size: 2rem;
+        }
+        
+        p {
+            font-size: 1rem;
+        }
+    }
+    
+    /* Smooth image loading */
+    img {
+        transition: opacity 0.3s ease;
+    }
+    
+    img:not([src]) {
+        opacity: 0;
+    }
+</style>

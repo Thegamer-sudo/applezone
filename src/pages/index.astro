@@ -3,15 +3,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import ProductGrid from '../components/ProductGrid.astro';
+import FreeAccessories from '../components/FreeAccessories.astro';  // Accessories grid
+import StudentDeals from '../components/StudentDeals.astro';        // Student deals image
 import WhyChooseUs from '../components/WhyChooseUs.astro';
-import FreeAccessories from '../components/FreeAccessories.astro';  // NEW
 import FinalCTA from '../components/FinalCTA.astro';
 ---
 
 <BaseLayout>
     <HeroSection />
     <ProductGrid />
-    <FreeAccessories />  <!-- ADD THIS -->
+    <FreeAccessories />    <!-- Shows charger, case, etc -->
+    <StudentDeals />       <!-- Shows student deals image -->
     <WhyChooseUs />
     <FinalCTA />
 </BaseLayout>
