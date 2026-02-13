@@ -3,22 +3,22 @@ import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, useGLTF } from '@react-three/drei';
 
-function IPhoneModel({ url }) {
+function IPhoneModel({ url, position }) {
   const { scene } = useGLTF(url);
-  // Perfect positioning
-  return <primitive object={scene} position={[0, -0.2, 0]} />;
+  // Use the position prop passed from [id].astro
+  return <primitive object={scene} position={position} />;
 }
 
-function BasicIPhone() {
+function BasicIPhone({ position }) {
   return (
-    <mesh position={[0, -0.2, 0]}>
+    <mesh position={position}>
       <boxGeometry args={[1.6, 3.1, 0.3]} />
       <meshStandardMaterial color="#1D1D1F" />
     </mesh>
   );
 }
 
-export default function Clean3DViewer({ modelPath }) {
+export default function Clean3DViewer({ modelPath, modelPosition = [0, -0.2, 0] }) {
   return (
     <div className="relative w-full h-[500px] bg-white rounded-2xl overflow-hidden">
       {/* Instructions at the TOP */}
@@ -30,8 +30,12 @@ export default function Clean3DViewer({ modelPath }) {
         <ambientLight intensity={1} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         
-        <Suspense fallback={<BasicIPhone />}>
-          {modelPath ? <IPhoneModel url={modelPath} /> : <BasicIPhone />}
+        <Suspense fallback={<BasicIPhone position={modelPosition} />}>
+          {modelPath ? (
+            <IPhoneModel url={modelPath} position={modelPosition} />
+          ) : (
+            <BasicIPhone position={modelPosition} />
+          )}
         </Suspense>
         
         <Environment preset="city" />
