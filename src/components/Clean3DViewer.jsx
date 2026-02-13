@@ -51,6 +51,10 @@ export default function Clean3DViewer({ modelPath, modelPosition = [0, -0.2, 0] 
           dampingFactor={0.05}
           minDistance={0.5}
           maxDistance={20}
+          // Only set target if position is not the default
+          {...(modelPosition[0] !== 0 || modelPosition[1] !== -0.2 || modelPosition[2] !== 0 
+              ? { target: modelPosition } 
+              : {})}
         />
       </Canvas>
     </div>
