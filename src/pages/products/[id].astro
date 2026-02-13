@@ -54,10 +54,10 @@ const brandNewVariants = iphone.variants.filter(v => v.condition === 'BRAND NEW'
 let modelPath = null;
 let modelPosition = [0, -0.2, 0]; // Default position (iPhone 11 perfect setting)
 
-// iPhone XR - uses GLTF format
+// iPhone XR - uses GLB format (finally!)
 if (iphone.id === 'iphone-xr') {
-    modelPath = '/models/iphone-xr/scene.gltf';
-    modelPosition = [0, -0.2, 0]; // We'll adjust XR later
+    modelPath = '/models/iphone-xr/iphone_xr.glb';
+    modelPosition = [0, -0.2, 0]; // Start with iPhone 11's perfect position
 }
 
 // iPhone 11 - uses GLB format
@@ -70,6 +70,18 @@ if (iphone.id === 'iphone-11') {
 if (iphone.id === 'iphone-11-pro') {
     modelPath = '/models/iphone-11-pro/iphone_11_pro.glb';
     modelPosition = [0, -0.03, 0];// Even higher
+}
+
+// iPhone 11 Pro Max - uses GLB format
+if (iphone.id === 'iphone-11-pro-max') {
+    modelPath = '/models/iphone-11-pro-max/iphone_11_pro_max__gold.glb';
+    modelPosition = [0, -0.1, 0]; // Sweet spot between
+}
+
+// iPhone 12 - uses GLB format
+if (iphone.id === 'iphone-12') {
+    modelPath = '/models/iphone-12/iphone_12.glb';
+    modelPosition = [0, -1, -1000]; // Even lower
 }
 // Add more iPhones here as you get their 3D models
 // if (iphone.id === 'iphone-12') {
