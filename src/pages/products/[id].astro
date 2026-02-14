@@ -84,6 +84,12 @@ if (iphone.id === 'iphone-12') {
     modelPosition = [0, -6.0, -1.5]; // Step 7
 }
 
+// iPhone 13 - uses GLB format
+if (iphone.id === 'iphone-13') {
+    modelPath = '/models/iphone-13/iphone_13.glb';
+    modelPosition = [0, -0.15, 0]; // Start here
+}
+
 // iPhone 13 Pro Max - uses GLB format
 if (iphone.id === 'iphone-13-pro-max') {
     modelPath = '/models/iphone-13-pro-max/iphone_13_pro_max.glb';
@@ -93,6 +99,18 @@ if (iphone.id === 'iphone-13-pro-max') {
 // iPhone 12 Pro - uses GLB format
 if (iphone.id === 'iphone-12-pro') {
     modelPath = '/models/iphone-12-pro/iphone_12_pro.glb';
+    modelPosition = [0, -0.15, -15]; // Way back
+}
+
+// iPhone 14 - uses GLB format
+if (iphone.id === 'iphone-14') {
+    modelPath = '/models/iphone-14/iphone_14.glb';
+    modelPosition = [0, -0.15, 0]; // Start here
+}
+
+// iPhone 14 Pro - uses GLB format
+if (iphone.id === 'iphone-14-pro') {
+    modelPath = '/models/iphone-14-pro/iphone_14_pro.glb';
     modelPosition = [0, -0.15, 0]; // Start here
 }
 // Add more iPhones here as you get their 3D models
