@@ -50,137 +50,146 @@ const preOwnedVariants = iphone.variants.filter(v => v.condition === 'PRE OWNED'
 const sealedVariants = iphone.variants.filter(v => v.condition === 'SEALED DEVICE');
 const brandNewVariants = iphone.variants.filter(v => v.condition === 'BRAND NEW');
 
-// 3D Model paths and positions for specific iPhones
+// ============================================
+// 3D MODEL PATHS AND POSITIONS - SORTED BY SERIES
+// ============================================
 let modelPath = null;
-let modelPosition = [0, -0.2, 0]; // Default position (iPhone 11 perfect setting)
+let modelPosition = [0, -0.2, 0]; // Default position
 
-// iPhone XR - uses GLB format (finally!)
+// ============================================
+// iPhone XR (2018)
+// ============================================
 if (iphone.id === 'iphone-xr') {
     modelPath = '/models/iphone-xr/iphone_xr.glb';
-    modelPosition = [0, -0.2, 0]; // Start with iPhone 11's perfect position
+    modelPosition = [-5, -0.2, -3];
 }
 
-// iPhone 11 - uses GLB format
+// ============================================
+// iPhone 11 Series (2019)
+// ============================================
 if (iphone.id === 'iphone-11') {
     modelPath = '/models/iphone-11/iphone_11.glb';
-    modelPosition = [0, -0.2, 0]; // Perfect for iPhone 11
+    modelPosition = [-1, -0.2, 2];
 }
 
-// iPhone 11 Pro - uses GLB format
 if (iphone.id === 'iphone-11-pro') {
     modelPath = '/models/iphone-11-pro/iphone_11_pro.glb';
-    modelPosition = [0, -0.03, 0];// Even higher
+    modelPosition = [0, -0.03, 2];
 }
 
-// iPhone 11 Pro Max - uses GLB format
 if (iphone.id === 'iphone-11-pro-max') {
     modelPath = '/models/iphone-11-pro-max/iphone_11_pro_max__gold.glb';
-    modelPosition = [0, -0.1, 0]; // Sweet spot between
+    modelPosition = [0, -0.1, 2];
 }
 
-// iPhone 12 - lower it
+// ============================================
+// iPhone 12 Series (2020)
+// ============================================
 if (iphone.id === 'iphone-12') {
     modelPath = '/models/iphone-12/iphone_12.glb';
-    modelPosition = [0, -6.0, -1.5]; // Step 7
+    modelPosition = [-2, -6.0, -1.5];
 }
 
-// iPhone 13 - uses GLB format
-if (iphone.id === 'iphone-13') {
-    modelPath = '/models/iphone-13/iphone_13.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
-}
-
-// iPhone 13 Pro Max - uses GLB format
-if (iphone.id === 'iphone-13-pro-max') {
-    modelPath = '/models/iphone-13-pro-max/iphone_13_pro_max.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
-}
-
-// iPhone 12 Pro - uses GLB format
 if (iphone.id === 'iphone-12-pro') {
     modelPath = '/models/iphone-12-pro/iphone_12_pro.glb';
-    modelPosition = [0, -0.15, -15]; // Way back
+    modelPosition = [0, -0.15, -15];
 }
 
-// iPhone 12 Pro Max - uses GLB format (zoomed out start)
 if (iphone.id === 'iphone-12-pro-max') {
     modelPath = '/models/iphone-12-pro-max/iphone_12_pro_max.glb';
-    modelPosition = [0, -0.15, -5]; // Even further
+    modelPosition = [0, -0.15, -18];
 }
-// iPhone 14 - uses GLB format
+
+// ============================================
+// iPhone 13 Series (2021)
+// ============================================
+if (iphone.id === 'iphone-13') {
+    modelPath = '/models/iphone-13/iphone_13.glb';
+    modelPosition = [0, -0.15, 0];
+}
+
+if (iphone.id === 'iphone-13-pro') {
+    modelPath = '/models/iphone-13-pro/iphone_13_pro.glb';
+    modelPosition = [-4, -0.15, 3];
+}
+
+if (iphone.id === 'iphone-13-pro-max') {
+    modelPath = '/models/iphone-13-pro-max/iphone_13_pro_max.glb';
+    modelPosition = [0, -0.15, -1];
+}
+
+// ============================================
+// iPhone 14 Series (2022)
+// ============================================
 if (iphone.id === 'iphone-14') {
     modelPath = '/models/iphone-14/iphone_14.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, 2];
 }
 
-// iPhone 14 Pro - uses GLB format
 if (iphone.id === 'iphone-14-pro') {
     modelPath = '/models/iphone-14-pro/iphone_14_pro.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, 2];
 }
 
-// iPhone 14 Pro Max - uses GLB format
 if (iphone.id === 'iphone-14-pro-max') {
     modelPath = '/models/iphone-14-pro-max/iphone_14_pro_max.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [-2, -0.15, 0.9];
 }
 
-// iPhone 15 - uses GLB format
+// ============================================
+// iPhone 15 Series (2023)
+// ============================================
 if (iphone.id === 'iphone-15') {
     modelPath = '/models/iphone-15/iphone_15.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, -6];
 }
 
-// iPhone 15 Pro - uses GLB format
 if (iphone.id === 'iphone-15-pro') {
     modelPath = '/models/iphone-15-pro/iphone_15_pro.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, 2];
 }
 
-// iPhone 15 Pro Max - uses GLB format
 if (iphone.id === 'iphone-15-pro-max') {
     modelPath = '/models/iphone-15-pro-max/iphone_15_pro_max.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, 2];
 }
 
-// iPhone 16 - uses GLB format
+// ============================================
+// iPhone 16 Series (2024)
+// ============================================
 if (iphone.id === 'iphone-16') {
     modelPath = '/models/iphone-16/iphone_16.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, -14];
 }
 
-// iPhone 16 Pro - uses GLB format
 if (iphone.id === 'iphone-16-pro') {
     modelPath = '/models/iphone-16-pro/iphone_16_pro.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, 2];
 }
 
-// iPhone 16 Pro Max - uses GLB format
 if (iphone.id === 'iphone-16-pro-max') {
     modelPath = '/models/iphone-16-pro-max/iphone_16_pro_max.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, -3];
 }
 
+// ============================================
+// iPhone 17 Series (2025)
+// ============================================
 // iPhone 17 Pro - uses GLB format
 if (iphone.id === 'iphone-17-pro') {
     modelPath = '/models/iphone-17-pro/iphone_17_pro.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, -6]; // Even further
 }
 
-// iPhone 17 Pro Max - uses GLB format
 if (iphone.id === 'iphone-17-pro-max') {
     modelPath = '/models/iphone-17-pro-max/iphone_17_pro_max.glb';
-    modelPosition = [0, -0.15, 0]; // Start here
+    modelPosition = [0, -0.15, 2];
 }
-// Add more iPhones here as you get their 3D models
-// if (iphone.id === 'iphone-12') {
-//     modelPath = '/models/iphone-12/model.glb';
-// }
 ---
 
 <BaseLayout>
     <!-- Import Poppins font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     
     <style>
         .font-poppins {
@@ -236,10 +245,10 @@ if (iphone.id === 'iphone-17-pro-max') {
                 <div class="w-full max-w-xl">
                     <div class="glass-card rounded-3xl p-8 shadow-2xl">
                         <Clean3DViewer 
-    client:load 
-    modelPath={modelPath}
-    modelPosition={modelPosition}
-/>
+                            client:load 
+                            modelPath={modelPath}
+                            modelPosition={modelPosition}
+                        />
                     </div>
                 </div>
             </div>
@@ -252,7 +261,7 @@ if (iphone.id === 'iphone-17-pro-max') {
                     <div class="h-1 w-24 gradient-border bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
                 </div>
 
-                <!-- Pricing Tables - Sexy Glass Design -->
+                <!-- Pricing Tables -->
                 <div class="space-y-12">
                     <!-- PRE OWNED -->
                     {preOwnedVariants.length > 0 && (
@@ -370,7 +379,7 @@ if (iphone.id === 'iphone-17-pro-max') {
                     )}
                 </div>
 
-                <!-- Included Benefits - Minimal Design -->
+                <!-- Included Benefits -->
                 <div class="glass-card rounded-3xl p-10">
                     <h3 class="text-2xl font-bold text-gray-900 mb-10 text-center">What's Included</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -9,13 +9,9 @@ function IPhoneModel({ url, position }) {
   return <primitive object={scene} position={position} />;
 }
 
-function BasicIPhone({ position }) {
-  return (
-    <mesh position={position}>
-      <boxGeometry args={[1.6, 3.1, 0.3]} />
-      <meshStandardMaterial color="#1D1D1F" />
-    </mesh>
-  );
+// Simple loading component - just a blank canvas with no box
+function LoadingFallback() {
+  return null; // Nothing shows while loading
 }
 
 export default function Clean3DViewer({ modelPath, modelPosition = [0, -0.2, 0] }) {
@@ -30,11 +26,15 @@ export default function Clean3DViewer({ modelPath, modelPosition = [0, -0.2, 0] 
         <ambientLight intensity={1} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         
-        <Suspense fallback={<BasicIPhone position={modelPosition} />}>
+        <Suspense fallback={<LoadingFallback />}>
           {modelPath ? (
             <IPhoneModel url={modelPath} position={modelPosition} />
           ) : (
-            <BasicIPhone position={modelPosition} />
+            // Only show basic box when there's NO model path at all
+            <mesh position={modelPosition}>
+              <boxGeometry args={[1.6, 3.1, 0.3]} />
+              <meshStandardMaterial color="#1D1D1F" />
+            </mesh>
           )}
         </Suspense>
         
